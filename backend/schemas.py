@@ -248,6 +248,33 @@ class User(UserBase):
         from_attributes = True
 
 
+# 认证相关 Schemas
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+
+class RegisterRequest(BaseModel):
+    username: str
+    password: str
+    real_name: Optional[str] = None
+    email: Optional[str] = None
+    phone: Optional[str] = None
+
+
+class LoginResponse(BaseModel):
+    code: int = 200
+    message: str = "登录成功"
+    data: dict
+    token: Optional[str] = None
+
+
+class RegisterResponse(BaseModel):
+    code: int = 200
+    message: str = "注册成功"
+    data: dict
+
+
 # 通用响应 Schema
 class Response(BaseModel):
     code: int = 200

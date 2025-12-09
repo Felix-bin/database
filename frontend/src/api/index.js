@@ -60,5 +60,9 @@ export const updateBilling = (id, data) => request.put(`/billing/${id}`, data)
 export const createReturn = (data) => request.post('/returns', data)
 export const createInspection = (data) => request.post('/inspections', data)
 
+// 认证相关
+export const login = (data) => request.post('/auth/login', data)
+export const register = (data) => request.post('/auth/register', data)
+
 export default request
 

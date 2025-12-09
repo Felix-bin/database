@@ -395,3 +395,23 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.refresh(db_user)
     return db_user
 
+
+def authenticate_user(db: Session, username: str, password: str):
+    """验证用户登录"""
+    user = get_user_by_username(db, username)
+    if not user:
+        return None
+    
+    if not verify_password(password, user.password_hash):
+        return None
+    
+    if user.status != "active":
+        return None
+    
+    # 更新最后登录时间
+    user.last_login = datetime.now()
+    db.commit()
+    db.refresh(user)
+    
+    return user
+
